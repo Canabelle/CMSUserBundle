@@ -27,7 +27,7 @@ class UserAdminController extends SecuredCRUDController
     public function createAction(Request $request = null)
     {
         if (!$this->admin->isAdmin()) {
-            return $this->redirect($this->generateUrl('admin_cmsuser_user_list'));
+            return $this->redirect($this->generateUrl('admin_canabelle_cmsuser_user_list'));
         }
 
         $request = $this->resolveRequest($request);
@@ -163,7 +163,7 @@ class UserAdminController extends SecuredCRUDController
         $id = $request->get($this->admin->getIdParameter());
         $object = $this->admin->getObject($id);
 
-        return $this->redirect($this->generateUrl('admin_cmsuser_user_edit', array('id' => $object->getId())));
+        return $this->redirect($this->generateUrl('admin_canabelle_cmsuser_user_edit', array('id' => $object->getId())));
     }
 
     /**
@@ -176,7 +176,7 @@ class UserAdminController extends SecuredCRUDController
             $id = $request->get($this->admin->getIdParameter());
             $object = $this->admin->getObject($id);
 
-            return $this->redirect($this->generateUrl('admin_cmsuser_user_edit', array('id' => $object->getId())));
+            return $this->redirect($this->generateUrl('admin_canabelle_cmsuser_user_edit', array('id' => $object->getId())));
         }
 
         return parent::historyAction($id, $request);
@@ -356,7 +356,7 @@ class UserAdminController extends SecuredCRUDController
     protected function solveResponseIfNotObjectOwner($id, Request $request, $object, $action)
     {
         if (!$this->admin->isAdmin($object) && !$this->isUserValid($object)) {
-            return $this->redirect($this->generateUrl('admin_cmsuser_user_list'));
+            return $this->redirect($this->generateUrl('admin_canabelle_cmsuser_user_list'));
         }
 
         return $this->doAction($action, $id, $request);
@@ -365,7 +365,7 @@ class UserAdminController extends SecuredCRUDController
     protected function solveResponseIfNotValidRequest($id, Request $request, $object, $action)
     {
         if (!$this->admin->isAdmin($object) && !$this->isUserValid($object)) {
-            return $this->redirect($this->generateUrl('admin_cmsuser_user_list'));
+            return $this->redirect($this->generateUrl('admin_canabelle_cmsuser_user_list'));
         }
 
         return $this->doAction($action, $id, $request);

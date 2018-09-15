@@ -179,7 +179,7 @@ class ResettingFOSUser1Controller extends \Sonata\UserBundle\Controller\Resettin
      */
     protected function getRedirectionUrl(UserInterface $user)
     {
-        return $this->container->get('router')->generate('admin_cmsuser_user_edit', array(
+        return $this->container->get('router')->generate('admin_canabelle_cmsuser_user_edit', array(
             'id' => $user->getId(),
         ));
     }
