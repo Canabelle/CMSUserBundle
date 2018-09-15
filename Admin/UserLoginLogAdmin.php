@@ -43,7 +43,7 @@ class UserLoginLogAdmin extends BaseUserAdmin
     protected function configureListFields(\Sonata\AdminBundle\Datagrid\ListMapper $listMapper)
     {
         $listMapper
-            ->add('user', null, array('label' => 'Uživatel', 'admin_code' => 'ok99.privatezone.user.admin.user'))
+            ->add('user', null, array('label' => 'Uživatel', 'admin_code' => 'canabelle.cms.user.admin.user'))
             ->add('ip', null, array('label' => 'IP'))
             ->add('createdAt', null, array('label' => 'Přihlášen'))
             ->add('_action', 'actions', array(
@@ -58,7 +58,7 @@ class UserLoginLogAdmin extends BaseUserAdmin
     protected function configureDatagridFilters(\Sonata\AdminBundle\Datagrid\DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('user', null, array('label' => 'Uživatel', 'admin_code' => 'ok99.privatezone.user.admin.user'))
+            ->add('user', null, array('label' => 'Uživatel', 'admin_code' => 'canabelle.cms.user.admin.user'))
             ->add('ip', null, array('label' => 'IP'))
         ;
     }
@@ -67,7 +67,7 @@ class UserLoginLogAdmin extends BaseUserAdmin
     protected function configureShowFields(\Sonata\AdminBundle\Show\ShowMapper $showMapper)
     {
         $showMapper
-            ->add('user', null, array('label' => 'Uživatel', 'admin_code' => 'ok99.privatezone.user.admin.user'))
+            ->add('user', null, array('label' => 'Uživatel', 'admin_code' => 'canabelle.cms.user.admin.user'))
             ->add('ip', null, array('label' => 'IP'))
             ->add('ua', null, array('label' => 'User-Agent'))
             ->add('createdAt', null, array('label' => 'Přihlášen'))

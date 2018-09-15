@@ -63,23 +63,16 @@ class User extends BaseUser implements UserInterface
     /**
      * @var string
      *
-     * @ORM\Column(name="firstname", type="string", length=64)
+     * @ORM\Column(name="firstname", type="string", length=64, nullable=true)
      */
     protected $firstname;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="lastname", type="string", length=64)
+     * @ORM\Column(name="lastname", type="string", length=64, nullable=true)
      */
     protected $lastname;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="nickname", type="string", length=255, nullable=true)
-     */
-     protected $nickname;
 
     /**
      * @var string
@@ -193,7 +186,7 @@ class User extends BaseUser implements UserInterface
     /**
      * @var array
      *
-     * @ORM\Column(name="roles", type="array")
+     * @ORM\Column(name="roles", type="array", nullable=true)
      */
     protected $roles;
 
@@ -350,7 +343,7 @@ class User extends BaseUser implements UserInterface
      */
     public function __toString()
     {
-        return sprintf('%s (%s)', $this->getName(), $this->getNickname());
+        return sprintf('%s (%s)', $this->getName(), $this->getUsername());
     }
 
     /**
@@ -610,22 +603,6 @@ class User extends BaseUser implements UserInterface
     public function getLastname()
     {
         return $this->lastname;
-    }
-
-    /**
-     * @param string $nickname
-     */
-    public function setNickname($nickname)
-    {
-        $this->nickname = $nickname;
-    }
-
-    /**
-     * @return string
-     */
-    public function getNickname()
-    {
-        return $this->nickname;
     }
 
     /**
