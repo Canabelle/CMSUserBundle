@@ -29,7 +29,7 @@ class ResettingFOSUser1Controller extends \Sonata\UserBundle\Controller\Resettin
     /**
      * Request reset user password: show form
      *
-     * @Route("/resetting/request", name="admin_cmsuser_resetting_request")
+     * @Route("/resetting/request", name="admin_canabelle_cmsuser_resetting_request")
      * @return Response
      */
     public function requestAction()
@@ -44,7 +44,7 @@ class ResettingFOSUser1Controller extends \Sonata\UserBundle\Controller\Resettin
     /**
      * Request reset user password: submit form and send email
      *
-     * @Route("/resetting/send-email", name="admin_cmsuser_resetting_send_email")
+     * @Route("/resetting/send-email", name="admin_canabelle_cmsuser_resetting_send_email")
      * @return Response
      */
     public function sendEmailAction()
@@ -105,13 +105,13 @@ class ResettingFOSUser1Controller extends \Sonata\UserBundle\Controller\Resettin
             $this->container->get('fos_user.user_manager')->updateUser($user);
         }
 
-        return new RedirectResponse($this->container->get('router')->generate('admin_cmsuser_resetting_check_email'));
+        return new RedirectResponse($this->container->get('router')->generate('admin_canabelle_cmsuser_resetting_check_email'));
     }
 
     /**
      * Tell the user to check his email provider
      *
-     * @Route("/resetting/check-email", name="admin_cmsuser_resetting_check_email")
+     * @Route("/resetting/check-email", name="admin_canabelle_cmsuser_resetting_check_email")
      * @return Response
      */
     public function checkEmailAction()
@@ -122,7 +122,7 @@ class ResettingFOSUser1Controller extends \Sonata\UserBundle\Controller\Resettin
 
         if (empty($email)) {
             // the user does not come from the sendEmail action
-            return new RedirectResponse($this->container->get('router')->generate('admin_cmsuser_resetting_request'));
+            return new RedirectResponse($this->container->get('router')->generate('admin_canabelle_cmsuser_resetting_request'));
         }
 
         return $this->container->get('templating')->renderResponse('FOSUserBundle:Resetting:checkEmail.html.'.$this->getEngine(), array(
@@ -135,7 +135,7 @@ class ResettingFOSUser1Controller extends \Sonata\UserBundle\Controller\Resettin
     /**
      * Reset user password
      *
-     * @Route("/resetting/reset/{token}", name="admin_cmsuser_resetting_reset")
+     * @Route("/resetting/reset/{token}", name="admin_canabelle_cmsuser_resetting_reset")
      * @return Response
      */
     public function resetAction($token)
@@ -147,7 +147,7 @@ class ResettingFOSUser1Controller extends \Sonata\UserBundle\Controller\Resettin
         }
 
         if (!$user->isPasswordRequestNonExpired($this->container->getParameter('fos_user.resetting.token_ttl'))) {
-            return new RedirectResponse($this->container->get('router')->generate('admin_cmsuser_resetting_request'));
+            return new RedirectResponse($this->container->get('router')->generate('admin_canabelle_cmsuser_resetting_request'));
         }
 
         $form = $this->container->get('fos_user.resetting.form');

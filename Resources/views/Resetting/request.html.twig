@@ -31,7 +31,7 @@ file that was distributed with this source code.
 				<p class="login-box-msg">{{ 'title_user_resetting'|trans({}, 'SonataUserBundle') }}</p>
 			{% endif %}
 
-			<form action="{{ path('admin_cmsuser_resetting_send_email') }}" method="POST" class="fos_user_resetting_request">
+			<form action="{{ path('admin_canabelle_cmsuser_resetting_send_email') }}" method="POST" class="fos_user_resetting_request">
 				<input type="hidden" name="_csrf_token" value="{{ csrf_token }}"/>
 				<div class="form-group has-feedback">
 					<input type="text" name="username" required="required" class="form-control"{{ invalid_username is defined or invalid_email is defined ? (' value="' ~ (invalid_username is defined ? invalid_username : invalid_email) ~ '"')|raw : '' }} placeholder="{{ 'resetting.request.username'|trans({}, 'FOSUserBundle') }}">

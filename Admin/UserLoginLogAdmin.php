@@ -9,7 +9,7 @@ class UserLoginLogAdmin extends BaseUserAdmin
 {
     public static $ROLE_ADMIN = 'ROLE_CANABELLE_CMSUSER_LOGIN_LOG_ADMIN_ADMIN';
 
-    protected $baseRouteName = 'admin_cmsuser_login_log';
+    protected $baseRouteName = 'admin_canabelle_cmsuser_login_log';
 
     protected $baseRoutePattern = 'administrace/login_log';
 
