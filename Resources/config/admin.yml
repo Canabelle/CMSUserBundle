@@ -1,0 +1,34 @@
+services:
+    ok99.privatezone.user.admin.user:
+        class: Canabelle\CMSUserBundle\Admin\UserAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Administration, label: users }
+        arguments: [null, Canabelle\CMSUserBundle\Entity\User, CanabelleCMSUserBundle:UserAdmin]
+        calls:
+            - [setContainer, [@service_container]]
+            - [setEntityManager, [@doctrine.orm.default_entity_manager]]
+            - [setUserManager, [@fos_user.user_manager]]
+            - [setTranslationDomain, [SonataUserBundle]]
+            - [setTemplate, [list, CanabelleCMSUserBundle:UserAdmin:list.html.twig]]
+            - [setTemplate, [outer_list_rows_list, CanabelleCMSUserBundle:UserAdmin:list_outer_rows_list.html.twig]]
+            - [setTemplate, [edit, CanabelleCMSUserBundle:UserAdmin:edit.html.twig]]
+
+    ok99.privatezone.user.admin.group:
+        class: Canabelle\CMSUserBundle\Admin\GroupAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Administration, label: groups }
+        arguments: [null, Canabelle\CMSUserBundle\Entity\Group, %sonata.user.admin.group.controller%]
+        calls:
+            - [setTranslationDomain, [%sonata.user.admin.group.translation_domain%]]
+
+    ok99.privatezone.user_login_log.admin:
+        class: Canabelle\CMSUserBundle\Admin\UserLoginLogAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Administration, label: Login log }
+        arguments: [null, Canabelle\CMSUserBundle\Entity\UserLoginLog, null]
+
+    ok99.privatezone.security.interactive_login_listener:
+        class: Canabelle\CMSUserBundle\Security\LoginListener
+        arguments: [@request_stack, @fos_user.user_manager, @doctrine.orm.default_entity_manager, @session, @canabelle.web.exception_handler]
+        tags:
+            - { name: kernel.event_listener, event: security.interactive_login, method: onSecurityInteractiveLogin }
