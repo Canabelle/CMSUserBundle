@@ -9,8 +9,3 @@ services:
         class: Canabelle\CMSUserBundle\Form\UserAvatarType
         tags:
             - { name: form.type, alias: user_avatar }
-
-    ok99.privatezone.user.form.type.user_photo:
-        class: Canabelle\CMSUserBundle\Form\UserPhotoType
-        tags:
-            - { name: form.type, alias: user_photo }

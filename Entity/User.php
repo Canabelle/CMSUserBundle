@@ -77,7 +77,7 @@ class User extends BaseUser implements UserInterface
     /**
      * @var string
      *
-     * @ORM\Column(name="gender", type="string", length=1, nullable=true)
+     * @ORM\Column(name="gender", type="string", length=1)
      */
     protected $gender = UserInterface::GENDER_UNKNOWN;
 
@@ -136,13 +136,6 @@ class User extends BaseUser implements UserInterface
     /**
      * @var string
      *
-     * @ORM\Column(name="photo", type="string", length=64, nullable=true)
-     */
-    private $photo;
-
-    /**
-     * @var string
-     *
      * @ORM\Column(name="skin_color", type="string", length=16, nullable=true)
      */
     private $skinColor;
@@ -169,17 +162,10 @@ class User extends BaseUser implements UserInterface
     protected $controlSidebarLightSkin = false;
 
     /**
-     * @var boolean
-     *
-     * @ORM\Column(name="suggest_event_classes", type="boolean")
-     */
-    protected $suggestEventClasses = true;
-
-    /**
      * @ORM\ManyToMany(targetEntity="Canabelle\CMSUserBundle\Entity\Group")
      * @ORM\JoinTable(name="user_group",
-     *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id", onDelete="CASCADE")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="group_id", referencedColumnName="id")})
+     *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="group_id", referencedColumnName="id", onDelete="CASCADE")})
      */
     protected $groups;
 
@@ -689,29 +675,6 @@ class User extends BaseUser implements UserInterface
     }
 
     /**
-     * Set photo
-     *
-     * @param string $photo
-     * @return User
-     */
-    public function setPhoto($photo = null)
-    {
-        $this->photo = $photo;
-
-        return $this;
-    }
-
-    /**
-     * Get photo
-     *
-     * @return string
-     */
-    public function getPhoto()
-    {
-        return $this->photo;
-    }
-
-    /**
      * Add groups
      *
      * @param \Canabelle\CMSUserBundle\Entity\Group $groups
@@ -1013,7 +976,7 @@ class User extends BaseUser implements UserInterface
      */
     public function getName()
     {
-        return sprintf("%s %s", $this->getLastname(), $this->getFirstname());
+        return sprintf("%s %s", $this->getFirstname(), $this->getLastname());
     }
 
         /**
@@ -1314,30 +1277,6 @@ class User extends BaseUser implements UserInterface
         } else {
             return '';
         }
-    }
-
-    /**
-     * @return boolean
-     */
-    public function getSuggestEventClasses()
-    {
-        return $this->suggestEventClasses;
-    }
-
-    /**
-     * @return boolean
-     */
-    public function suggestEventClasses()
-    {
-        return $this->getSuggestEventClasses();
-    }
-
-    /**
-     * @param boolean $suggestEventClasses
-     */
-    public function setSuggestEventClasses($suggestEventClasses)
-    {
-        $this->suggestEventClasses = $suggestEventClasses;
     }
 
     /**

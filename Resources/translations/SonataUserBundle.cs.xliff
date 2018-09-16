@@ -306,10 +306,6 @@
                 <source>Lastname</source>
                 <target>Příjmení</target>
             </trans-unit>
-            <trans-unit id="Nickname">
-                <source>Nickname</source>
-                <target>Přezdívka</target>
-            </trans-unit>
             <trans-unit id="Website">
                 <source>Website</source>
                 <target>Webová stránka</target>
@@ -333,10 +329,6 @@
             <trans-unit id="Phone">
                 <source>Phone</source>
                 <target>Telefon</target>
-            </trans-unit>
-            <trans-unit id="Photo">
-                <source>Photo</source>
-                <target>Foto</target>
             </trans-unit>
             <trans-unit id="Facebook Uid">
                 <source>Facebook Uid</source>
@@ -389,14 +381,6 @@
             <trans-unit id="User.Avatar">
                 <source>User.Avatar</source>
                 <target>Profilová fotka</target>
-            </trans-unit>
-            <trans-unit id="User.Photo">
-                <source>User.Photo</source>
-                <target>Foto</target>
-            </trans-unit>
-            <trans-unit id="User.Photo.Addressbook">
-                <source>User.Photo.Addressbook</source>
-                <target>Fotka do adresáře</target>
             </trans-unit>
             <trans-unit id="Security.Status">
                 <source>Security.Status</source>

@@ -15,7 +15,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class UserAdmin extends BaseUserAdmin
 {
-    public static $ROLE_ADMIN = 'ROLE_CANABELLE_CMSUSER_USER_ADMIN_ADMIN';
+    public static $ROLE_ADMIN = 'ROLE_CANABELLE_CMS_USER_ADMIN_USER_ADMIN';
 
     protected $baseRoutePattern = 'administrace/uzivatele';
 
@@ -61,15 +61,14 @@ class UserAdmin extends BaseUserAdmin
         $formMapper
             ->tab('User')
                 ->with('Basic', array('class' => 'col-md-6'))
-                    ->add('firstname', null, array('required' => true))
-                    ->add('lastname', null, array('required' => true))
-                    ->add('nickname', null, array('required' => false))
-                    /*->add('gender', 'sonata_user_gender', array(
+                    ->add('firstname', null, array('required' => false))
+                    ->add('lastname', null, array('required' => false))
+                    ->add('gender', 'sonata_user_gender', array(
                         'required' => true,
+                        'expanded' => true,
                         'translation_domain' => $this->getTranslationDomain()
-                    ))*/
+                    ))
                     ->add('avatar', $this->id($this->getSubject()) ? 'user_avatar' : 'hidden', array('label' => 'User.Avatar', 'required' => false,))
-                    ->add('photo', $this->id($this->getSubject()) ? 'user_photo' : 'hidden', array('label' => 'User.Photo.Addressbook', 'required' => false))
                 ->end()
                 ->with('Contact', array('class' => 'col-md-6'))
                     ->add('email')
@@ -81,7 +80,7 @@ class UserAdmin extends BaseUserAdmin
 
                 if ($this->isGranted('ROLE_SUPER_ADMIN')) {
                     $formMapper->with('User', array('class' => 'col-md-6'))
-                        ->add('username', null, array('required' => false, 'read_only' => true))
+                        ->add('username', null, array('required' => true))
                         ->add('plainPassword', 'text', array(
                             'required' => (!$this->getSubject() || is_null($this->getSubject()->getId()))
                         ));
@@ -148,7 +147,7 @@ class UserAdmin extends BaseUserAdmin
         $listMapper
             ->addIdentifier('name', null, array('label' => 'User Name'))
             ->add('groups', null, array('template' => 'CanabelleCMSUserBundle:UserAdmin:list_groups_field.html.twig'))
-            ->add('enabled', null, array('editable' => true))
+            ->add('enabled', null, array('editable' => $this->isAdmin()))
         ;
 
         if ($this->isGranted('ROLE_SUPER_ADMIN')/*$this->isGranted('ROLE_ALLOWED_TO_SWITCH')*/) {
@@ -167,9 +166,21 @@ class UserAdmin extends BaseUserAdmin
         }
     }
 
+    /**
+     * @param null|User $object
+     * @return bool
+     */
     public function isAdmin($object = null)
     {
         return $this->isGranted(self::$ROLE_ADMIN) || ($object ? $this->isGranted('ADMIN', $object) : $this->isGranted('ADMIN'));
+    }
+
+    /**
+     * @return bool
+     */
+    public function isSuperAdmin()
+    {
+        return $this->isGranted('ROLE_SUPER_ADMIN');
     }
 
     /**
@@ -278,6 +289,9 @@ class UserAdmin extends BaseUserAdmin
                 $url = $this->generateUrl('edit', array('id' => $object->getId()));
                 header('Location: ' . $url);
                 exit;
+            } elseif (!$this->isSuperAdmin()) {
+                $query->andWhere($query->getRootAlias() . '.roles NOT LIKE :superAdminRole');
+                $query->setParameter('superAdminRole', '%ROLE_SUPER_ADMIN%');
             }
         }
 

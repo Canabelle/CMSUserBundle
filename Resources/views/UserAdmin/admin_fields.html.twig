@@ -26,7 +26,7 @@
 		</div>
 		<div class="user-profile--avatar-crop" style="display: none"></div>
 
-		<div class="user-profile--avatar-popover popover top fade" role="tooltip" data-send-url="{{ path('admin_privatezonecore_user_user_store_cropped_avatar', {'userId': form.parent.vars.data.id}) }}">
+		<div class="user-profile--avatar-popover popover top fade" role="tooltip" data-send-url="{{ path('admin_canabelle_cmsuser_user_store_cropped_avatar', {'userId': form.parent.vars.data.id}) }}">
 			<h3 class="popover-title">Ořez profilové fotky</h3>
 			<div class="popover-content">
 				<div>
@@ -85,7 +85,7 @@
 								popover.css({
 									positon: 'absolute',
 									minWidth: popoverWidth,
-									left: $(window).width()/2 - popoverWidth/2 - $('.main-sidebar').outerWidth(),
+									left: $(window).width()/2 - popoverWidth/2 - $('#field_container_{{ id }}').offset().left,
 									top: popoverOffsetTop
 								}).addClass('in').show();
 
@@ -178,76 +178,6 @@
 				$('#field_actions_{{ id }}').find('.btn-remove').off('click').on('click', function(e){
 					e.preventDefault();
 					$('#field_container_{{ id }} img.user-profile--avatar').remove();
-					$('#field_container_{{ id }} .user-profile--drop-desc').show();
-					$('#field_actions_{{ id }}').find('.btn-upload span').text($('#field_actions_{{ id }}').find('.btn-upload span').data('upload-title'));
-					$(this).hide();
-					$('#{{ id }}').val('');
-				});
-			});
-		</script>
-	</div>
-{% endblock %}
-
-{% block user_photo_widget %}
-	<input id="{{ id }}" type="hidden" name="{{ full_name }}" value="{{ value }}" />
-	<div id="field_container_{{ id }}" class="field-container" data-image-pattern="{{ path('symbio_webtools_thumbnail_ratio', {'width': 250, 'height': 350, 'path': '|path|' }) }}">
-		<span id="field_actions_{{ id }}" class="field_actions" style="margin: -2px 0 3px 0">
-			{% set upload_btn_title = value ? 'user_profile_upload_again' : 'user_profile_upload' %}
-			<span class="btn btn-danger btn-sm btn-outline sonata-ba-action btn-remove" style="position:relative;{{ not value ? 'display:none;' : '' }}">
-				<i class="fa fa-minus-circle"></i>
-				&nbsp;<span>{{ 'user_profile_remove'|trans({}, 'SonataUserBundle') }}</span>
-			</span>
-			<span class="btn btn-success btn-sm btn-outline sonata-ba-action btn-upload" style="position:relative">
-				<i class="fa fa-upload"></i>
-				&nbsp;<span data-upload-title="{{ 'user_profile_upload'|trans({}, 'SonataUserBundle') }}" data-upload-again-title="{{ 'user_profile_upload_again'|trans({}, 'SonataUserBundle') }}">{{ upload_btn_title|trans({}, 'SonataUserBundle') }}</span>
-				<input id="{{ id }}_files" type="file" name="{{ id }}_files[]" data-url="{{ oneup_uploader_endpoint('media_user_image') }}" style="position:absolute;top:0;right:0;opacity:0;left:0;bottom:0;cursor:pointer;width:100%;" />
-			</span>
-			<img src="/bundles/ok99privatezonemedia/img/ajax-loader.gif" alt="" class="loading" />
-		</span>
-
-		{% if value %}
-			<img src="{{ path('symbio_webtools_thumbnail_ratio', {'width': 250, 'height': 350, 'path': value }) }}" class="user-profile--photo" alt="" />
-		{% endif %}
-
-		<div class="user-profile--drop-desc">
-			<i class="fa fa-warning text-yellow"></i>
-			&nbsp;{{ 'user_profile_drop_info'|trans({}, 'SonataUserBundle') }}
-		</div>
-
-		<script type="text/javascript">
-			$(document).ready(function() {
-				$('#{{ id }}_files').fileupload({
-					dataType: 'json',
-					done: function (e, data) {
-						if (data.result.error === undefined) {
-							var imagePathname = $('#field_container_{{ id }}').data('image-pattern').replace('|path|', data.result.pathname);
-							if ($('#field_container_{{ id }} img.user-profile--photo').length) {
-								$('#field_container_{{ id }} img.user-profile--photo').attr('src', imagePathname);
-							} else {
-								$('#field_container_{{ id }}').append('<img src="' + imagePathname + '" class="user-profile--photo" alt="" />');
-							}
-							$('#{{ id }}').val(data.result.pathname);
-							$('#field_actions_{{ id }}').find('.btn-upload span').text($('#field_actions_{{ id }}').find('.btn-upload span').data('upload-again-title'));
-							$('#field_actions_{{ id }}').find('.btn-remove').show();
-							$('#field_container_{{ id }} .user-profile--drop-desc').hide();
-						} else {
-							$("#field_actions_{{ id }}").before('<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button><p>' + data.result.error + '</p></div>');
-						}
-					},
-					formData: {
-						context: 'photo'
-					},
-					progressall: function (e) {
-						$('#field_container_{{ id }}').find('.loading').show();
-					},
-					stop: function (e) {
-						$('#field_container_{{ id }}').find('.loading').hide();
-					}
-				});
-
-				$('#field_actions_{{ id }}').find('.btn-remove').off('click').on('click', function(e){
-					e.preventDefault();
-					$('#field_container_{{ id }} img.user-profile--photo').remove();
 					$('#field_container_{{ id }} .user-profile--drop-desc').show();
 					$('#field_actions_{{ id }}').find('.btn-upload span').text($('#field_actions_{{ id }}').find('.btn-upload span').data('upload-title'));
 					$(this).hide();

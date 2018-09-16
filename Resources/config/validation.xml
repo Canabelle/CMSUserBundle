@@ -15,6 +15,12 @@
             </constraint>
         </property>
 
+        <property name="gender">
+            <constraint name="NotBlank">
+                <option name="message">fos_user.gender.blank</option>
+            </constraint>
+        </property>
+
         <property name="email">
             <constraint name="NotBlank">
                 <option name="message">fos_user.email.blank</option>
@@ -36,9 +42,6 @@
         </property>
 
         <property name="firstname">
-            <constraint name="NotBlank">
-                <option name="message">fos_user.firstname.blank</option>
-            </constraint>
             <constraint name="Length">
                 <option name="max">255</option>
                 <option name="maxMessage">fos_user.firstname.long</option>
@@ -46,9 +49,6 @@
         </property>
 
         <property name="lastname">
-            <constraint name="NotBlank">
-                <option name="message">fos_user.lastname.blank</option>
-            </constraint>
             <constraint name="Length">
                 <option name="max">255</option>
                 <option name="maxMessage">fos_user.lastname.long</option>

@@ -268,7 +268,7 @@ class UserAdminController extends SecuredCRUDController
                 if ($user->getAvatar() && file_exists($documentRoot . $user->getAvatar())) {
                     @unlink($documentRoot . $user->getAvatar());
                 }
-                foreach (glob(dirname($pathname) . sprintf('/%s_*', $user->getRegnum())) as $file) {
+                foreach (glob(dirname($pathname) . sprintf('/%s_*', $user->getId())) as $file) {
                     if (is_file($file) && strtolower(basename($file)) != strtolower($avatarFilename)) {
                         @unlink($file);
                     }
@@ -280,7 +280,7 @@ class UserAdminController extends SecuredCRUDController
                     $iterator = new \DirectoryIterator($baseDirPath);
                     foreach ($iterator as $node) {
                         if ($node->isDir() && !$node->isDot()) {
-                            $path = sprintf('%s%s/%s_*', $node->getPathname(), dirname($avatarRelativePathname), $user->getRegnum());
+                            $path = sprintf('%s%s/%s_*', $node->getPathname(), dirname($avatarRelativePathname), $user->getId());
                             foreach (glob($path) as $file) {
                                 if (is_file($file) && strtolower(basename($file)) != strtolower($avatarFilename)) {
                                     @unlink($file);
@@ -327,7 +327,7 @@ class UserAdminController extends SecuredCRUDController
             $response->addError('Property is not set');
         }
 
-        if (!in_array($propertyName, ['skinColor','menuSidebarCollapsed','menuSidebarExpandOnHover','controlSidebarLightSkin','suggestEventClasses'])) {
+        if (!in_array($propertyName, ['skinColor','menuSidebarCollapsed','menuSidebarExpandOnHover','controlSidebarLightSkin'])) {
             $response->addError('Access denied');
         }
 

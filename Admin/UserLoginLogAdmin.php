@@ -7,7 +7,7 @@ use Sonata\UserBundle\Admin\Entity\UserAdmin as BaseUserAdmin;
 
 class UserLoginLogAdmin extends BaseUserAdmin
 {
-    public static $ROLE_ADMIN = 'ROLE_CANABELLE_CMSUSER_LOGIN_LOG_ADMIN_ADMIN';
+    public static $ROLE_ADMIN = 'ROLE_CANABELLE_CMS_USER_ADMIN_LOGIN_LOG_ADMIN';
 
     protected $baseRouteName = 'admin_canabelle_cmsuser_login_log';
 
